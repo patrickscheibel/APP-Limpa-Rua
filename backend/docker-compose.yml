@@ -1,23 +1,25 @@
 version: '3.5'
 
 services:
-  mysql-db:
-    container_name: mysql_bd
-    image: mysql:latest
-    command: --default-authentication-plugin=mysql_native_password --general_log=ON --bind_address=0.0.0.0
+  postgres-db:
+    container_name: postgres_bd
+    image: postgres:latest
     environment:
-      MYSQL_DB: 'my_db'
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - '3306:3306'
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: 'my_db'
+      POSTGRES_ROOT_USER: root
+      POSTGRES_ROOT_PASSWORD: root
     volumes:
-      - my_db:/var/lib/mysql
+      - my_db:/data/postgres
+    ports:
+      - "5432:5432"
     networks:
-      - mysql
-    # build: ./database
+      - postgres
+
 networks:
-    mysql:
-        driver: bridge
+  postgres:
+    driver: bridge
+
 volumes:
-   my_db:
+  my_db:
