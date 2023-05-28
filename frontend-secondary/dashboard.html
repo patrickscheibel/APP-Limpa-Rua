@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Dashboard</h1>
+    <div class="buttons">
+      <div class="button-container">
+        <button class="users-button" onclick="window.location.href = '/users'">Listagem de Usuários</button>
+      </div>
+      <div class="button-container">
+        <button class="occurrences-button" onclick="window.location.href = '/occurrences'">Lista de Ocorrências</button>
+      </div>
+      <div class="button-container">
+        <button class="back-button" onclick="window.location.href = '/'">Sair</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin: 0;
+  }
+    
+  .dashboard {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333333;
+    margin-top: 0;
+  }
+    
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+  
+  .button-container {
+    width: 48%;
+    margin-bottom: 10px;
+  }
+  
+  .button-container:last-child {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+  }
+    
+  button {
+    padding: 10px;
+    background-color: #4caf50;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 100%;
+  }
+    
+  .back-button {
+    background-color: #888888;
+    margin-top: 30px;
+    align-items: center;
+    width: 20%;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+</style>

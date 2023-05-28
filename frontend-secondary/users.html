@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Listagem de Usuários</title>
+</head>
+<body>
+  <div class="user-list">
+    <h1>Listagem de Usuários</h1>
+    <ul id="user-list"></ul>
+
+    <button class="back-button" onclick="window.location.href = '/dashboard'">Voltar</button>
+  </div>
+</body>
+</html>
+
+<script>
+// Faz a requisição para a API e exibe os usuários na lista
+fetch('http://127.0.0.1:3000/user')
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error('Erro ao carregar os usuários. Status: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(function(response) {
+    var userList = document.getElementById('user-list');
+    var users = response.data;
+    
+    users.forEach(function(user) {
+      var li = document.createElement('li');
+      li.innerHTML = `<strong>${user.name}</strong><br>
+                      Email: ${user.email}<br>
+                      Phone: ${user.phone}<br>
+                      CEP: ${user.cep}`;
+      userList.appendChild(li);
+    });
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+</script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  .user-list {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333333;
+    margin-top: 0;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #4caf50;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  .back-button {
+    background-color: #888888;
+    margin-top: 30px;
+    align-items: center;
+    width: 20%;
+  }
+</style>
