@@ -7,6 +7,12 @@ apt install nodejs npm docker-compose
 npm install pm2 -g
 ```
 
+### Executar o seguinte comando na pasta para instalar as dependências do Nodejs 
+```sh
+npm i
+```
+
+### Criar o banco do dados
 ```sh
 docker-compose up -d
 ```
