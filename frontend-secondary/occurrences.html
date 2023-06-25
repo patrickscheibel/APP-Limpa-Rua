@@ -4,13 +4,45 @@
   <title>Listagem de Ocorrências</title>
 </head>
 <body>
-  <div class="user-list">
-    <h1>Em desenvolvimento</h1>
+  <div class="occurence-list">
+    <h1>Listagem de Ocorrências</h1>
+    <ul id="occurrence-list"></ul>
 
     <button class="back-button" onclick="window.location.href = '/dashboard'">Voltar</button>
   </div>
 </body>
 </html>
+
+<script>
+  // Faz a requisição para a API e exibe os usuários na lista
+  fetch('http://127.0.0.1:3000/occurrence')
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error('Erro ao carregar as ocorrências. Status: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(function(response) {
+    var occurrenceList = document.getElementById('occurrence-list');
+    var occurrences = response.data;
+    var url_api = 'http://127.0.0.1:3000/';
+
+    occurrences.forEach(function(occurrence) {
+      var li = document.createElement('li');
+      li.innerHTML = `<strong>Descrição:</strong> ${occurrence.description}<br>
+                      <strong>Usuário:</strong> ${occurrence.user}<br>
+                      <strong>Imagem:</strong><br> 
+                      <img src="${url_api}${occurrence.photo_url}"><br>
+                      <strong>Latitude:</strong> ${occurrence.latitude}<br>
+                      <strong>Longitude:</strong> ${occurrence.longitude}<br>
+                      <strong>Data:</strong> ${new Date(occurrence.date).toLocaleString()}`;
+      occurrenceList.appendChild(li);
+    });
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+</script>
 
 <style>
   body {
@@ -20,7 +52,7 @@
     margin: 0;
   }
   
-  .user-list {
+  .occurence-list {
     max-width: 400px;
     margin: 0 auto;
     background-color: #ffffff;
@@ -45,6 +77,11 @@
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 3px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
   }
 
   button {
