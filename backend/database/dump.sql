@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS users (
   cep VARCHAR(12) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS occurrence (
+CREATE TABLE IF NOT EXISTS occurrences (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL,
   description VARCHAR(255) NOT NULL,
-  photo_url TEXT NOT NULL,
+  photo_url TEXT NULL,
   latitude VARCHAR(255) NOT NULL,
   longitude VARCHAR(255) NOT NULL,
   date TIMESTAMP NOT NULL
