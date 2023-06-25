@@ -55,6 +55,11 @@ router.post("/update", updateUserValidationRules(), async function (req, res, ne
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const userData = await user.findUserById(req.body.id);
+    if(userData == null) {
+      return res.status(400).json({'message': "User id not found" });
+    }
+
     res.json(await user.update(req.body, res));
   } catch (err) {
     console.error(`Error while updating user`, err.message);
@@ -65,7 +70,17 @@ router.post("/update", updateUserValidationRules(), async function (req, res, ne
 /* DELETE user */
 router.delete("/delete/:id", async function (req, res, next) {
   try {
-    res.json(await user.remove(req.params.id, res));
+    const userId = req.params.id;
+    if (!userId) {
+      return res.status(400).json({'mensage': "Parameter id not found" });
+    }
+
+    const userData = await user.findUserById(userId);
+    if (userData == null) {
+      return res.status(400).json({'message': "User id not found" });
+    }
+
+    res.json(await user.remove(userId, res));
   } catch (err) {
     console.error(`Error while deleting user`, err.message);
     next(err);
