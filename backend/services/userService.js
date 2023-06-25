@@ -91,10 +91,31 @@ async function remove(id, res) {
   return { message };
 }
 
+async function findUserById(id) {
+  try {
+    const rows = await db.query(
+      `SELECT * FROM users WHERE id = $1`,
+      [id]
+    );
+    const result = helper.emptyOrRows(rows);
+
+    if (result.length == 0) {
+      return null; // Retornar null se não for encontrada nenhuma ocorrência com o ID fornecido
+    }
+
+    const user = result[0];
+    return user;
+  } catch (error) {
+    console.error("Error finding user:", error);
+    throw new Error("Failed to find user");
+  }
+}
+
 module.exports = {
   index,
   login,
   create,
   update,
-  remove
+  remove,
+  findUserById
 };
