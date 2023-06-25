@@ -17,6 +17,14 @@ const updateUserValidationRules = () => [
     body('cep').isLength({ min: 8 })
 ];
 
+const findByIdUserValidationRules = () => [
+    body('id').isNumeric()
+];
+
+const findByEmailUserValidationRules = () => [
+    body('email').isEmail()
+];
+
 const loginUserValidationRules = () => [
     body('email').isEmail(),
     body('password').isLength({ min: 3 })
@@ -44,6 +52,8 @@ module.exports = {
   createUserValidationRules,
   updateUserValidationRules,
   loginUserValidationRules,
+  findByIdUserValidationRules,
+  findByEmailUserValidationRules,
   createOccurrenceValidationRules,
   updateOccurrenceValidationRules,
 };

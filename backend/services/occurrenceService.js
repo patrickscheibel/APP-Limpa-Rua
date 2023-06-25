@@ -5,7 +5,16 @@ const config = require("../config");
 async function index(page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM occurrences OFFSET $1 LIMIT $2`,
+    `SELECT occurrences.id, 
+            occurrences.user_id || ' - ' || users.name AS user,
+            description,
+            photo_url,
+            latitude,
+            longitude,
+            date
+     FROM occurrences
+     JOIN users ON occurrences.user_id = users.id
+     OFFSET $1 LIMIT $2`,
     [offset, config.listPerPage]
   );
   const data = helper.emptyOrRows(rows);

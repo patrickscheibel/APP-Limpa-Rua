@@ -111,11 +111,32 @@ async function findUserById(id) {
   }
 }
 
+async function findUserByEmail(email) {
+  try {
+    const rows = await db.query(
+      `SELECT * FROM users WHERE email = $1`,
+      [email]
+    );
+    const result = helper.emptyOrRows(rows);
+
+    if (result.length == 0) {
+      return null; // Retornar null se não for encontrada nenhuma ocorrência com o ID fornecido
+    }
+
+    const user = result[0];
+    return user;
+  } catch (error) {
+    console.error("Error finding user:", error);
+    throw new Error("Failed to find user");
+  }
+}
+
 module.exports = {
   index,
   login,
   create,
   update,
   remove,
-  findUserById
+  findUserById,
+  findUserByEmail
 };

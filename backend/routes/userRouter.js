@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user = require('../services/userService');
 const { validationResult } = require('express-validator');
-const { createUserValidationRules, updateUserValidationRules, loginUserValidationRules } = require('../services/validator');
+const { createUserValidationRules, updateUserValidationRules, loginUserValidationRules, findByIdUserValidationRules,findByEmailUserValidationRules } = require('../services/validator');
 
 /* GET users */
 router.get("/", async function (req, res, next) {
@@ -83,6 +83,44 @@ router.delete("/delete/:id", async function (req, res, next) {
     res.json(await user.remove(userId, res));
   } catch (err) {
     console.error(`Error while deleting user`, err.message);
+    next(err);
+  }
+});
+
+/* Find user by id */
+router.post("/findById", findByIdUserValidationRules(), async function (req, res, next) {
+  try {
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const userData = await user.findUserById(req.body.id);
+    if(userData == null) {
+      return res.status(400).json({'message': "User id not found" });
+    }
+    return res.status(200).json({ userData });
+  } catch (err) {
+    console.error(`Error while updating user`, err.message);
+    next(err);
+  }
+});
+
+/* Find user by email */
+router.post("/findByEmail", findByEmailUserValidationRules(), async function (req, res, next) {
+  try {
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const userData = await user.findUserByEmail(req.body.email);
+    if(userData == null) {
+      return res.status(400).json({'message': "User email not found" });
+    }
+    return res.status(200).json({ userData });
+  } catch (err) {
+    console.error(`Error while updating user`, err.message);
     next(err);
   }
 });
