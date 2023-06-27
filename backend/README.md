@@ -22,11 +22,18 @@ docker-compose up -d
 docker exec -it <NOME_DO_CONTAINER> mysql -u<user> -p<password>
 ```
 
-### Criar uma copiá do "config_example.js" e renomear para "config.js" para configurar e ter acesso ao banco de dados 
+<br>
 
+### Criar uma cópia do "config_example.js" e renomear para "config.js" para configurar e ter acesso ao banco de dados 
+
+<br>
+
+### Iniciar aplicação
+```sh
+node index.js
+```
 
 ### Iniciar aplicação em produção
-
 ```sh
 pm2 start index.js
 ```
