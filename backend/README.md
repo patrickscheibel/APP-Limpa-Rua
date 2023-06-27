@@ -19,7 +19,7 @@ docker-compose up -d
 
 ### Acessar o banco de dados
 ```sh
-docker exec -it <NOME_DO_CONTAINER> mysql -u<user> -p<password>
+docker exec -it <NOME_DO_CONTAINER> psql -u<user> -p<password>
 ```
 
 <br>
