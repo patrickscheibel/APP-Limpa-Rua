@@ -12,8 +12,16 @@ npm install pm2 -g
 npm i
 ```
 
+<br>
+
 ### Criar uma cópia do ".env copy" e renomear para ".env" para configurar os parâmetros de acesso na API 
 
+<br>
+
+### Iniciar aplicação
+```sh
+node index.js
+```
 
 ### Iniciar aplicação em produção
 
